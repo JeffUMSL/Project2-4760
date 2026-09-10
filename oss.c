@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 			execlp(args[0],args[0],args[1],args[2],args[3],args[4],args[5],(char *)0);
 			*/
 
-			string arg0 = "./child";
+			string arg0 = "./user";
 			string arg1 = "Hello";
 			string arg2 = "there";
 			string arg3 = "exec";
