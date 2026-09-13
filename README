@@ -4,5 +4,8 @@ Environment: linux, vi
 How to compile the project: Type "make"
 Example of how to run the project:
 
-Generative AI used : chatgpt
-Prompts:
+Generative AI used : gemini
+Prompts: what does getopt() do in relation to processes
+Summary: explains that getopt() acts as a configuration manager 
+that decides how (oss) should behave and how many child processes (user) it should create.(which I understand)
+But I don't understand the example code it generates.
