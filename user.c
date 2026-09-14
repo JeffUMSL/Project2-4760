@@ -14,10 +14,17 @@ int main(int argc, char** argv) {
 		int i;
 		for (i =0; i < argc; i++)
 				printf("|%s| ", argv[i]), "\n";
+		
+		//error checking
+		if(argc < 2)
+		{
+			cerr << "user needs another argument" << endl;
+			return 1;
+		}
 
 
 		//convert string to int
-		int num_iter = stoi(argv[argc - 1]);
+		int num_iter = stoi(argv[1]);
 		for(int i = 0; i < num_iter; i++)
 		{
 			cout << "\nUSER PID: " << getpid() << " PPID: " << getppid() << " Iteration: " << i << " before sleeping" << endl;
