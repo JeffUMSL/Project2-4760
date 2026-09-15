@@ -2,10 +2,20 @@ Name: Jeff Kimani
 Date: 9/7/2026
 Environment: linux, vi
 How to compile the project: Type "make"
-Example of how to run the project:
+Example of how to run the project: oss -n 5 -s 3 -t 7
 
 Generative AI used : gemini
 Prompts: what does getopt() do in relation to processes
 Summary: explains that getopt() acts as a configuration manager 
-that decides how (oss) should behave and how many child processes (user) it should create.(which I understand)
-But I don't understand the example code it generates.
+that decides how (oss) should behave and how many child processes (user) it should create.
+
+Generative AI used : gemini
+Prompts: makefile in linux 
+Summary: gives a description of makefile, Provide code example running makefile, different uses of a makefile 
+such as make, make clean, make ProgramName
+
+
+Generative AI used : gemini
+Prompts: getopt(3) what does this do
+Summary: explains getopt(3) is a standard library function used to parse command-line
+options and flags passed to a program (like -v, -h, or -f filename. Provide code example running getopt(3)

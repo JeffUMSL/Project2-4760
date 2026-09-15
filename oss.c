@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 	}
 
 	
-	// Given n is max process to launch, s is simul limit
+	// Given n is max process to launch, simul_limit is processes runnning simultaneously
 	// c is current processes running, starting at 0
 	// total is total processes that have launched, starting at 0
 	
@@ -67,6 +67,13 @@ int main(int argc, char** argv) {
 
 	while(c < sim_limit && total < total_children)
 	{
+		//restrict running more than 3 processes simul
+		if(sim_limit > 3) 
+		{ 
+			cout << "sim_limit is > 3\n";
+			break;
+		}
+
 		/*Launch new child process
 		oss outputs message of new child launched
 		c++;
@@ -113,6 +120,12 @@ int main(int argc, char** argv) {
 		/*wait();
 		Launch new child process
 		total++;*/
+
+		//restrict running more than 3 processes simul
+                if(sim_limit > 3)
+                {
+                        break;
+                }
 		
 		wait(NULL);
 		
@@ -150,39 +163,6 @@ int main(int argc, char** argv) {
 
 	// chatgpt, run into error when using only wait(NULL)
 	while(wait(NULL) > 0) {}
-
-	/*// This is where the child process splits from the parent
-	pid_t childPid = fork(); 
-	if (childPid == 0) {
-		printf("I am a child but a copy of parent! My parent's PID is %d, and my PID is %d\n",getppid(), getpid());
-
-		// Following code launches the child process with some arguments
-		// I show some different ways to set up your strings
-
-		string iter_str = to_string(pass_to_user);
-
-		char arg0[] = "./user";
-
-		// Allocate a buffer large enough for your number, then copy the string value into it
-		char arg1[16];
-		snprintf(arg1, sizeof(arg1), "%s", iter_str.c_str());
-
-		// Bundle their pointers together into the final arguments array
-		char* args[] = { arg0, arg1, NULL };
-
-		execvp(args[0], args);
-
-
-
-		fprintf(stderr,"Exec failed, terminating\n");
-		exit(1);
-	} 
-	else {
-		printf("I'm a parent! My pid is %d, and my child's pid is %d \n",getpid(), childPid);
-		//sleep(1);
-		wait(0);
-	}*/
-
 
 	printf("oss is now ending.\n");
 	return EXIT_SUCCESS;
