@@ -18,4 +18,12 @@ such as make, make clean, make ProgramName
 Generative AI used : gemini
 Prompts: getopt(3) what does this do
 Summary: explains getopt(3) is a standard library function used to parse command-line
-options and flags passed to a program (like -v, -h, or -f filename. Provide code example running getopt(3)
+options and flags passed to a program (like -v, -h, or -f filename. Provide code example running getopt(3
+
+
+Generative AI used : gemini
+Prompts: convert my code from c to c++
+Summary: converted my code which was mixed in c and c++, converted it to c++ for better readability
+
+
+)
