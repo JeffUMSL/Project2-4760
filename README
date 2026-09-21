@@ -8,11 +8,13 @@ Generative AI used : gemini
 Prompts: what does getopt() do in relation to processes
 Summary: explains that getopt() acts as a configuration manager 
 that decides how (oss) should behave and how many child processes (user) it should create.
+Also I read the prereq_review.doc doc where there's further explainations of getopt(), how
+used it's for parsing cmd arguments
 
 Generative AI used : gemini
 Prompts: makefile in linux 
 Summary: gives a description of makefile, Provide code example running makefile, different uses of a makefile 
-such as make, make clean, make ProgramName
+such as make, make clean, make ProgramName. Ended up using the provided makefile example in canvas.
 
 
 Generative AI used : gemini
@@ -23,7 +25,14 @@ options and flags passed to a program (like -v, -h, or -f filename. Provide code
 
 Generative AI used : gemini
 Prompts: convert my code from c to c++
-Summary: converted my code which was mixed in c and c++, converted it to c++ for better readability
+Summary: converted my code which was a mix of c and c++, converted it to c++ for better readability and
+I understand c++ better than c. This made work easier because I'm sure I would have missed snippets of c
+in my code.
+
+Generative AI used : chatgpt
+Prompts: why I'm I getting an error when only using wait()
+Summary: Explains that function requires an argument. The function signature expects a pointer to an 
+integer (int*) where it can store the termination status of the child process. I had copy pasted the example
+in prereq.doc in canvas which ended up bringing some errors in my code because the wait() needed an argument.
 
 
-)

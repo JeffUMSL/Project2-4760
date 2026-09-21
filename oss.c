@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 		//restrict running more than 3 processes simul
 		if(sim_limit > 3) 
 		{ 
-			cout << "sim_limit is > 3\n";
+			cout << "sim_limit needs to be less than or equal to 3\n";
 			break;
 		}
 
