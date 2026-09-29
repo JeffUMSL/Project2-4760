@@ -1,6 +1,6 @@
 Name: Jeff Kimani
-Date: 9/7/2026
-Environment: linux, vi
+Date: 9/25/2026
+Environment: linux, local compiler
 How to compile the project: Type "make"
 Example of how to run the project: oss -n 5 -s 3 -t 7
 

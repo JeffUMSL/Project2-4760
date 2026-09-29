@@ -1,10 +1,10 @@
 CC	= g++ -g3
 CFLAGS  = -g3
 TARGET1 = oss
-TARGET2 = user 
+TARGET2 = worker
 
 OBJS1	= oss.o
-OBJS2	= user.o
+OBJS2	= worker.o
 
 all:	$(TARGET1) $(TARGET2)
 
@@ -14,11 +14,11 @@ $(TARGET1):	$(OBJS1)
 $(TARGET2):	$(OBJS2)
 	$(CC) -o $(TARGET2) $(OBJS2)
 
-oss.o:		oss.c
-	$(CC) $(CFLAGS) -c oss.c
+oss.o:		oss.cpp
+	$(CC) $(CFLAGS) -c oss.cpp
 
-user.o:		user.c
-	$(CC) $(CFLAGS) -c user.c
+worker.o:	worker.cpp
+	$(CC) $(CFLAGS) -c worker.cpp
 
 clean:
 	/bin/rm -f *.o $(TARGET1) $(TARGET2)
