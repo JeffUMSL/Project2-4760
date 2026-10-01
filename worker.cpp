@@ -1,8 +1,67 @@
 #include <iostream>
 #include <string>
 #include <unistd.h> // getpid(), getppid(), and sleep()
+#include <cstdlib>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+
+using namespace std;
+
+const int BUFF_SZ = sizeof(int) * 2;
 
 int main(int argc, char** argv) {
+// Generate the same shared memory key as oss.cpp
+    key_t shm_key = ftok("oss.cpp", 0);
+
+    if (shm_key == -1)
+    {
+        cerr << "Child: Error in ftok\n";
+        return 1;
+    }
+
+    // Get the existing shared memory segment
+    int shm_id = shmget(shm_key, BUFF_SZ, 0700);
+
+    if (shm_id == -1)
+    {
+        cerr << "Child: Error in shmget\n";
+        return 1;
+    }
+
+    // Attach to the shared memory
+    int* clock = static_cast<int*>(shmat(shm_id, nullptr, 0));
+
+    if (clock == reinterpret_cast<int*>(-1))
+    {
+        cerr << "Child: Error in shmat\n";
+        return 1;
+    }
+
+    // Access the two parts of the shared clock
+    int* sec = &clock[0];
+    int* nano = &clock[1];
+
+    // Display the values set by OSS
+    cout << "Child:\t sec " << *sec
+         << " , nanosecond " << *nano << '\n';
+
+    // Change the shared clock
+    cout << "Changing clock to 5 , 13\n";
+
+    *sec = 5;
+    *nano = 13;
+
+    // Display the new values
+    cout << "Child:\t sec " << *sec
+         << " , nanosecond " << *nano << '\n';
+
+    cout << "Child terminating\n";
+
+    // Detach from shared memory
+    shmdt(clock);
+    clock = nullptr;
+
 
     // Error checking 
     if (argc < 3) {
