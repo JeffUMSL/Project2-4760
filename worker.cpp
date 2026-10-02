@@ -11,7 +11,24 @@ using namespace std;
 const int BUFF_SZ = sizeof(int) * 2;
 
 int main(int argc, char** argv) {
-// Generate the same shared memory key as oss.cpp
+    // Error checking
+    if (argc < 3) {
+        std::cerr << "Missing arguments\n";
+        return 1;
+    }
+
+    std::cout << "Worker starting, ";
+    std::cout << "PID:" << getpid() << " PPID:" << getppid() << "\n";
+    std::cout << "Called with: \n" << "Interval: ";
+
+    for (int i = 1; i < argc; i++) {
+        if(i == 1){ std::cout << argv[i] << " seconds, ";}
+        else{ std::cout << argv[i] << " nanoseconds";}
+    }
+    cout << endl;
+
+
+    // Generate the same shared memory key as oss.cpp
     key_t shm_key = ftok("oss.cpp", 0);
 
     if (shm_key == -1)
@@ -42,15 +59,59 @@ int main(int argc, char** argv) {
     int* sec = &clock[0];
     int* nano = &clock[1];
 
+    int starting_sec = *sec;
+    int last_sec = *sec;
+
+    int interval_sec = stoi(argv[1]);
+    int interval_nano = stoi(argv[2]);
+
+    int target_sec = *sec + interval_sec;
+    int target_nano = *nano + interval_nano;
+
+    if (target_nano >= 1000000000)
+    {
+        target_sec++;
+        target_nano -= 1000000000;
+    }
+
+    
+    std::cout << "\nWorker, ";
+    std::cout << "PID:" << getpid() << " PPID:" << getppid() << "\n";
+    cout << "SysClockS: " << *sec << " SysClockNano: " << *nano << " TermTimeS: " << target_sec << " TermTimeNano: " << target_nano << endl;
+    cout << "--Just Starting\n\n";
+
+    while (*sec < target_sec || (*sec == target_sec && *nano < target_nano))
+    {
+	 if (*sec != last_sec)
+         {
+	     int seconds_passed = *sec - starting_sec;
+             // check the shared system clock
+             cout << "Worker, ";
+             cout << "PID:" << getpid() << " PPID:" << getppid() << "\n";
+             cout << "SysClockS: " << *sec << " SysClockNano: " << *nano << " TermTimeS: " 
+		     << target_sec << " TermTimeNano: " << target_nano << endl;
+	     cout << "--" << seconds_passed << " seconds have passed since starting" << endl << endl;
+
+	     last_sec = *sec;
+	 }
+
+
+    }
+
+    std::cout << "Worker, ";
+    std::cout << "PID:" << getpid() << " PPID:" << getppid() << "\n";
+    cout << "SysClockS: " << *sec << " SysClockNano: " << *nano << " TermTimeS: " << target_sec << " TermTimeNano: " << target_nano << endl;
+    cout << "--Terminating\n\n";
+
     // Display the values set by OSS
     cout << "Child:\t sec " << *sec
          << " , nanosecond " << *nano << '\n';
 
     // Change the shared clock
-    cout << "Changing clock to 5 , 13\n";
+    //cout << "Changing clock to 5 , 13\n";
 
-    *sec = 5;
-    *nano = 13;
+    //*sec = 5;
+    //*nano = 13;
 
     // Display the new values
     cout << "Child:\t sec " << *sec
@@ -62,40 +123,8 @@ int main(int argc, char** argv) {
     shmdt(clock);
     clock = nullptr;
 
-
-    // Error checking 
-    if (argc < 3) {
-	std::cerr << "Missing arguments\n";
-        return 1;
-    }
-
-    std::cout << "Worker starting, ";
-    std::cout << "PID:" << getpid() << " PPID:" << getppid() << "\n";
-    std::cout << "Called with: \n" << "Interval: ";
-
-    for (int i = 1; i < argc; i++) {
-	if(i == 1){ std::cout << argv[i] << " seconds, ";}
-	else{ std::cout << argv[i] << " nanoseconds";}
-        //std::cout << argv[i] << " ";
-    }
-
-    // Convert string to int using C++ stoi
-    /*int num_iter = std::stoi(argv[1]);
-    for (int i = 0; i < num_iter; i++) {
-        std::cout << "\nUSER PID: " << getpid() 
-                  << " PPID: " << getppid() 
-                  << " Iteration: " << i << " before sleeping";
-        
-        sleep(1);
-        
-        std::cout << "\nUSER PID: " << getpid() 
-                  << " PPID: " << getppid() 
-                  << " Iteration: " << i << " after sleeping\n";
-    }*/
-
     std::cout << "\n\nworker is now ending.\n";
 
     //sleep(3);
     return EXIT_SUCCESS;
 }
-
