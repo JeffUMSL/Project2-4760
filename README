@@ -1,38 +1,30 @@
 Name: Jeff Kimani
 Date: 9/25/2026
-Environment: linux, local compiler
+Environment: linux, vi
 How to compile the project: Type "make"
-Example of how to run the project: oss -n 5 -s 3 -t 7
+Example of how to run the project: ./oss -n 5 -s 3 -t 4.5 -i 0.2
 
-Generative AI used : gemini
-Prompts: what does getopt() do in relation to processes
-Summary: explains that getopt() acts as a configuration manager 
-that decides how (oss) should behave and how many child processes (user) it should create.
-Also I read the prereq_review.doc doc where there's further explainations of getopt(), how
-used it's for parsing cmd arguments
+Generative AI used: chatgpt
+Prompts: how to convert parameter -i to system clock 
+Summary: AI was used to help understand how -i parameter could be converted
+from a fractional number of seconds into seconds and nanoseconds for comparison
+with the system clock.
 
-Generative AI used : gemini
-Prompts: makefile in linux 
-Summary: gives a description of makefile, Provide code example running makefile, different uses of a makefile 
-such as make, make clean, make ProgramName. Ended up using the provided makefile example in canvas.
-
-
-Generative AI used : gemini
-Prompts: getopt(3) what does this do
-Summary: explains getopt(3) is a standard library function used to parse command-line
-options and flags passed to a program (like -v, -h, or -f filename. Provide code example running getopt(3
-
-
-Generative AI used : gemini
-Prompts: convert my code from c to c++
-Summary: converted my code which was a mix of c and c++, converted it to c++ for better readability and
-I understand c++ better than c. This made work easier because I'm sure I would have missed snippets of c
-in my code.
 
 Generative AI used : chatgpt
-Prompts: why I'm I getting an error when only using wait()
-Summary: Explains that function requires an argument. The function signature expects a pointer to an 
-integer (int*) where it can store the termination status of the child process. I had copy pasted the example
-in prereq.doc in canvas which ended up bringing some errors in my code because the wait() needed an argument.
+Prompts: How to implement and update the process table.
+Summary: used AI to help understand how to store worker info in the
+process table, including the PID, start time, ending time, and occupied
+status.
 
 
+Generative AI used : chatgpt
+Prompts: How to print the process table every half second of simulated time
+Summary: AI was used to help understand how to use the simulated system clock to
+print the process table every 0.5 simulated seconds.
+
+
+Generative AI used : chatgpt
+Prompts: debuging fork, waitpid, and child process creation
+Summary: AI was used to help debug process creation and termination issues involving
+fork(), waitpid(), worker counting, and process table cleanup. (run into a fork bomb)

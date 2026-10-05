@@ -94,8 +94,6 @@ int main(int argc, char** argv) {
 
 	     last_sec = *sec;
 	 }
-
-
     }
 
     std::cout << "Worker, ";
@@ -106,12 +104,6 @@ int main(int argc, char** argv) {
     // Display the values set by OSS
     cout << "Child:\t sec " << *sec
          << " , nanosecond " << *nano << '\n';
-
-    // Change the shared clock
-    //cout << "Changing clock to 5 , 13\n";
-
-    //*sec = 5;
-    //*nano = 13;
 
     // Display the new values
     cout << "Child:\t sec " << *sec
